@@ -1,7 +1,19 @@
 name: 'JS Continuous Integration'
 
 on:
-  - pull_request
+  pull_request:
+    paths:
+      - 'javascript/reactjs-todo/**'
+      - 'javascript/angular-todo/**'
+
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'javascript/reactjs-todo/**'
+      - 'javascript/angular-todo/**'
+
 
 jobs:
   install:
