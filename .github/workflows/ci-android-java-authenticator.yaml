@@ -14,6 +14,8 @@ on:
     paths:
       - 'android/java-authenticator/**'
 
+  workflow_dispatch:
+
 permissions: write-all
 jobs:
   # Build and run the authenticator unit tests
@@ -45,11 +47,7 @@ jobs:
           cache: 'gradle'
       
       - name: Build with Gradle
-        run: ./gradlew build
-        working-directory: android/java-authenticator
-
-      - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew testDebugUnitTest --stacktrace --no-daemon
         working-directory: android/java-authenticator
 
       # Publish test reports for the unit tests
@@ -58,7 +56,7 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           name: Unit tests results
-          path: 'android/java-authenticator/build/test-results/**/TEST-*.xml,forgerock-auth/build/test-results/**/TEST-*.xml,forgerock-authenticator/build/test-results/**/TEST-*.xml,ping-protect/build/test-results/**/TEST-*.xml'
+          path: 'android/java-authenticator/authenticator/build/test-results/**/TEST-*.xml'
           list-suites: 'all'
           list-tests: 'all'
           fail-on-error: 'true'
